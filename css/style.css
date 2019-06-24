@@ -1,0 +1,386 @@
+/**     
+Erstellt von der Gruppe "XForms":
+Felix Hennerkes,
+Maximilian Karpfinger,
+Janik Schnellbach,
+Daniel Meint
+**/
+
+:root {
+    --primary-color: #5e995e;
+    --secondary-color: #c5ebc5;
+}
+
+* {
+    font-family: Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+.flex-container {
+    display: flex;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+    flex-direction: column;
+    align-items: center;
+
+    max-height: 100vh;
+}
+
+.left {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.right {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+svg {
+    max-width: 800px;
+}
+
+/* gui elements */
+#arrow_down {
+  transform: scale(0.1) translate(0px, -500px);
+  fill: red;
+  animation: arrow 1s infinite;
+}
+
+.functions form {
+    display: inline-block;
+}
+
+#games-table {
+  text-align: left;
+}
+
+#games-table > .list-group-item > div {
+  display: inline-block;
+}
+
+#games-table > .list-group-item > div:nth-child(1) {
+  width: 128px;
+}
+
+#games-table td {
+    padding: 0;
+}
+
+#games-table td a {
+  display: block;
+  padding: 12px;
+
+  text-decoration: none;
+  color: inherit;
+}
+
+svg .label {
+    fill: white;
+    stroke: black;
+}
+
+svg .label > text {
+    fill: black;
+
+}
+
+svg .label > text.name {
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+svg .label > text.hand_value {
+    font-size: 32px;
+    font-style: italic;
+}
+
+#login {
+    padding: 8px 16px;
+    background: white;
+}
+
+/* table */
+#table text {
+    font-family: Helvetica, sans-serif;
+    fill: var(--secondary-color);
+    text-transform: uppercase;
+    font-size: 32px;
+}
+
+#table text.heavy {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+#table text.small {
+    font-size: 24px;
+}
+
+#tableBase {
+    fill: var(--primary-color);
+}
+
+#box {
+    stroke: var(--secondary-color);
+}
+
+/* cards */
+#card_base {
+    fill: white;
+    stroke: black;
+}
+
+g[id *= 'hearts'] text,
+g[id *= 'diamonds'] text,
+g[id *= 'spades'] text,
+g[id *= 'clubs'] text,
+#hearts,
+#diamonds,
+#spades,
+#clubs {
+    font-size: 24px;
+}
+
+g[id *= 'hearts'] text,
+g[id *= 'diamonds'] text,
+#diamonds,
+#hearts {
+    fill: red;
+}
+
+g[id *= 'spades'] text,
+g[id *= 'clubs'] text,
+#spades,
+#clubs {
+    fill: black;
+}
+
+.checker-background {
+    fill: white;
+}
+
+.checker {
+    fill: darkblue;
+}
+
+#back > rect:nth-child(2) {
+    fill: url(cards.svg#pattern-checkers);
+}
+
+/* chips */
+.chip text {
+    dominant-baseline: central;
+    fill: white;
+    font-size: 32px;
+    text-anchor: middle;
+}
+
+.chip-1 {
+    fill: grey;
+}
+
+.chip-5 {
+    fill: red;
+}
+
+.chip-10 {
+    fill: rgb(134, 180, 241);
+}
+
+.chip-25 {
+    fill: green;
+}
+
+.chip-100 {
+    fill: black;
+}
+
+/* buttons */
+.btn {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-radius: 28px;
+    border: 2px solid var(--primary-color);
+    margin: 8px;
+    display: inline-block;
+    cursor: pointer;
+    
+    padding: 16px 32px;
+    
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: darkolivegreen;
+}
+
+.btn-small {
+    width: 112px;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: white;
+}
+
+.btn-disabled, .btn-disabled:hover {
+  background-color: #6c757d;
+  color: white;
+  
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.hidden {
+    display: none;
+}
+
+/* cards */
+.card {
+    transition: all .5s ease;
+}
+
+.card:hover {
+    transform: scale(1.2) translateY(-30px);
+}
+
+/* placing cards */
+#dealer {
+  transform: translate(340px, 40px);
+}
+
+#player_cards {
+    --pos-1-x: 670px;
+    --pos-1-y: 280px;
+    --pos-2-x: 520px;
+    --pos-2-y: 350px;
+    --pos-3-x: 340px;
+    --pos-3-y: 390px;
+    --pos-4-x: 160px;
+    --pos-4-y: var(--pos-2-y);
+    --pos-5-x: 10px;
+    --pos-5-y: var(--pos-1-y);
+}
+
+
+#player_1_of_4, #player_1_of_5 {
+    transform: translate(var(--pos-1-x), var(--pos-1-y));
+}
+
+#player_1_of_2, #player_1_of_3, #player_2_of_4, #player_2_of_5 {
+    transform: translate(var(--pos-2-x), var(--pos-2-y));
+}
+
+#player_1_of_1, #player_2_of_2, #player_2_of_3, #player_3_of_4, #player_3_of_5 {
+    transform: translate(var(--pos-3-x), var(--pos-3-y));
+}
+
+#player_3_of_3, #player_4_of_4, #player_4_of_5 {
+    transform: translate(var(--pos-4-x), var(--pos-4-y));
+}
+
+#player_5_of_5 {
+    transform: translate(var(--pos-5-x), var(--pos-5-y));
+}
+
+@keyframes shadow-pulse
+{
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 35px rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes arrow
+{
+  0% {
+    transform: scale(0.1) translate(0px, -500px)
+  }
+  50% {
+    transform: scale(0.1) translate(0px, -550px)
+  }
+  100% {
+    transform: scale(0.1) translate(0px, -500px)
+  }
+}
+
+
+/* Loader */
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 27px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
