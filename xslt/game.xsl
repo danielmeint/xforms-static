@@ -10,11 +10,14 @@
     <xsl:template match="/">
         <div>
             <a id="exit-button" class="btn btn-secondary left" href="/bjx">&lt; Menu</a>
+            <form class="right bottom" action="/bjx/games/{/game/@id}/draw" method="post" target="hiddenFrame">
+                <input type="submit" value="&#8634; Redraw Game"/>
+            </form>
             <span id="login" class="right">
                 Logged in as<xsl:text>&#xA0;</xsl:text><b><xsl:value-of select="$name"/></b><xsl:text>&#xA0;</xsl:text>(<a href="/bjx/logout">logout</a>)
             </span>
             <div class="container flex-container">
-                <svg viewBox="0 0 800 520">
+                <svg viewBox="-100 0 1000 520">
                     <!-- table dimensions: 800 x 450 -->
                     <use href="/static/bjx/svg/table.svg#table" x="0" y="0"/>
                     
@@ -36,11 +39,44 @@
                         </xsl:choose>
                     </g>
                     <g id="player_cards">
-                        <xsl:for-each select="game/player">
+                        <xsl:for-each select="/game/player">
                             <g id="player_{position()}_of_{count(/game/player)}">
-                                <xsl:if test="@state = 'active'">
-                                    <use viewBox="0 0 450 450" height="20px" width="20px"
-                                        href="/static/bjx/svg/gui.svg#arrow_down"/>
+                                <xsl:if test="bet > 0">
+                                    <g viewBox="0 0 100 100">
+                                        <xsl:choose>
+                                            <xsl:when test="@state = 'won' or @state='tied'">
+                                                <xsl:attribute name="style">animation: chip-won 1s ease-in forwards</xsl:attribute>
+                                            </xsl:when>
+                                            <xsl:when test="@state = 'lost'">
+                                                <xsl:attribute name="style">animation: chip-lost 1s ease-in forwards</xsl:attribute>
+                                            </xsl:when>
+                                        </xsl:choose>
+                                        
+                                        <xsl:choose>
+                                            <xsl:when test="bet >= 100">
+                                                <xsl:attribute name="class">bet chip chip-100</xsl:attribute>
+                                            </xsl:when>
+                                            <xsl:when test="bet >= 25">
+                                                <xsl:attribute name="class">bet chip chip-25</xsl:attribute>
+                                            </xsl:when>
+                                            <xsl:when test="bet >= 10">
+                                                <xsl:attribute name="class">bet chip chip-10</xsl:attribute>
+                                            </xsl:when>
+                                            <xsl:when test="bet >= 5">
+                                                <xsl:attribute name="class">bet chip chip-5</xsl:attribute>
+                                            </xsl:when>
+                                            <xsl:when test="bet >= 1">
+                                                <xsl:attribute name="class">bet chip chip-1</xsl:attribute>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="class">bet chip</xsl:attribute>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        <use href="/static/bjx/svg/chips.svg#chip" width="50" height="50"/>
+                                        <text x="25" y="25" alignment-baseline="central">
+                                            <xsl:value-of select="bet"/>
+                                        </text>
+                                    </g>
                                 </xsl:if>
                                 <g class="card_group">
                                     <xsl:for-each select="hand/card">
@@ -50,12 +86,22 @@
                                     </xsl:for-each>
                                 </g>
                                 <xsl:if test="/game/@state = 'playing'">
-                                    <g class="label label-hand">
-                                        <rect x="-50px" y="70px" rx="25" ry="25" width="80" height="50"/>
-                                        <text class="name" x="-30px" y="85px">
+                                    <g>
+                                        <xsl:choose>
+                                            <xsl:when test="@state='active'">
+                                                <xsl:attribute name="class">label label-hand label-active</xsl:attribute>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="class">label label-hand</xsl:attribute>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                      
+
+                                        <rect x="10px" y="70px" rx="25" ry="25" width="80" height="50"/>
+                                        <text class="name" x="30px" y="85px">
                                             <xsl:value-of select="@name"/>
                                         </text>
-                                        <text class="hand_value" x="-30px" y="115px" xmlns="http://www.w3.org/2000/svg">
+                                        <text class="hand_value" x="30px" y="115px" xmlns="http://www.w3.org/2000/svg">
                                             <xsl:value-of select="hand/@value"/>
                                         </text>
                                     </g>

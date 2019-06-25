@@ -34,22 +34,24 @@ body {
 .left {
     position: absolute;
     left: 0;
-    top: 0;
 }
 
 .right {
     position: absolute;
     right: 0;
-    top: 0;
+}
+
+.bottom {
+    position: abolute;
+    bottom: 0;
 }
 
 svg {
-    max-width: 800px;
+    max-width: 1200px;
 }
 
 /* gui elements */
 #arrow_down {
-  transform: scale(0.1) translate(0px, -500px);
   fill: red;
   animation: arrow 1s infinite;
 }
@@ -87,6 +89,10 @@ svg .label {
     stroke: black;
 }
 
+svg .label.label-active {
+    animation: shadow-pulse 1s infinite;
+}
+
 svg .label > text {
     fill: black;
 
@@ -104,6 +110,7 @@ svg .label > text.hand_value {
 
 #login {
     padding: 8px 16px;
+    border-bottom-left-radius: 8px;
     background: white;
 }
 
@@ -176,6 +183,7 @@ g[id *= 'clubs'] text,
 }
 
 /* chips */
+
 .chip text {
     dominant-baseline: central;
     fill: white;
@@ -202,6 +210,16 @@ g[id *= 'clubs'] text,
 .chip-100 {
     fill: black;
 }
+
+
+/* TODO: better scaling for chips in game */
+#player_cards .bet.chip text {
+    font-size: 16px;
+}
+
+
+
+
 
 /* buttons */
 .btn {
@@ -304,26 +322,65 @@ g[id *= 'clubs'] text,
     transform: translate(var(--pos-5-x), var(--pos-5-y));
 }
 
+
+/* bets */
+#player_1_of_4 .bet, #player_1_of_5 .bet {
+    transform: translate(-10px, -50px)
+}
+
+#player_1_of_2 .bet, #player_1_of_3 .bet, #player_2_of_4 .bet, #player_2_of_5 .bet {
+    transform: translate(5px, -45px)
+}
+
+#player_1_of_1 .bet, #player_2_of_2 .bet, #player_2_of_3 .bet, #player_3_of_4 .bet, #player_3_of_5 .bet {
+    transform: translate(35px, -55px)
+}
+
+#player_3_of_3 .bet, #player_4_of_4 .bet, #player_4_of_5 .bet {
+    transform: translate(65px, -45px)
+}
+
+#player_5_of_5 .bet {
+    transform: translate(80px, -50px)
+}
+
 @keyframes shadow-pulse
 {
   0% {
-    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+    filter: drop-shadow(0px 0px 2px red);
+  }
+  50% {
+    filter: drop-shadow(0px 0px 4px red);
   }
   100% {
-    box-shadow: 0 0 0 35px rgba(0, 0, 0, 0);
+    filter: drop-shadow(0px 0px 2px red);
   }
 }
 
 @keyframes arrow
 {
   0% {
-    transform: scale(0.1) translate(0px, -500px)
+    transform: scale(0.1) translate(0px, -300px) rotate(-90deg)
   }
   50% {
-    transform: scale(0.1) translate(0px, -550px)
+    transform: scale(0.1) translate(-30px, -300px) rotate(-90deg)
   }
   100% {
-    transform: scale(0.1) translate(0px, -500px)
+    transform: scale(0.1) translate(0px, -300px) rotate(-90deg)
+  }
+}
+
+@keyframes chip-won
+{
+  100% {
+    transform: scale(0.5) translate(50px, 50px);
+  }
+}
+
+@keyframes chip-lost
+{
+  100% {
+    transform: translate(0px, -1000px);
   }
 }
 
@@ -360,7 +417,7 @@ g[id *= 'clubs'] text,
   left: 45px;
   animation: lds-ellipsis3 0.6s infinite;
 }
-@keyframes lds-ellipsis1 {
+@keyframes lds-ellipsis1 {f
   0% {
     transform: scale(0);
   }
