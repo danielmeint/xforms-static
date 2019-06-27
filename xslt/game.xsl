@@ -13,9 +13,6 @@
             <form class="right bottom" action="/bjx/games/{/game/@id}/draw" method="post" target="hiddenFrame">
                 <input class="btn btn-secondary" type="submit" value="&#8634; Redraw Game"/>
             </form>
-            <span id="login" class="right">
-                Logged in as<xsl:text>&#xA0;</xsl:text><b><xsl:value-of select="$name"/></b><xsl:text>&#xA0;</xsl:text>(<a href="/bjx/logout">logout</a>)
-            </span>
             <div class="flex-container">
                 <svg viewBox="-100 0 1000 520">
                     <!-- table dimensions: 800 x 450 -->
@@ -158,6 +155,27 @@
                             </p>
                         </xsl:when>
                     </xsl:choose>
+                </div>
+                <div class="chat right">
+                    <p id="login">
+                        Logged in as<xsl:text>&#xA0;</xsl:text><b><xsl:value-of select="$name"/></b><xsl:text>&#xA0;</xsl:text>(<a href="/bjx/logout">logout</a>)
+                    </p>
+                    <table>
+                        <xsl:for-each select="/game/chat/message">
+                            <tr>
+                                <td class="author">
+                                    <xsl:value-of select="@author"/>
+                                </td>
+                                <td class="msg">
+                                    <xsl:value-of select="text()"/>
+                                </td>
+                            </tr>
+                        </xsl:for-each>
+                    </table>
+                    <form action="/bjx/games/{/game/@id}/{$self/@name}/chat" method="POST" target="hiddenFrame">
+                        <input type="text" name="msg"/>
+                        <input class="btn" type="submit" value="Chat"/>
+                    </form>
                 </div>
                 <iframe class="hidden" name="hiddenFrame"/>
             </div>

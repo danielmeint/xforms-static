@@ -90,6 +90,17 @@ form {
     margin: 0;
 }
 
+.chat {
+    max-width: 256px;
+}
+
+.chat td {
+    max-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 #games-table {
   text-align: left;
 }
@@ -112,6 +123,11 @@ form {
 
   text-decoration: none;
   color: inherit;
+}
+
+table td.author {
+    width: 20%;
+    color: var(--primary-color);
 }
 
 input {
@@ -221,12 +237,6 @@ svg .label > text.hand_value {
 
 .earnings.lost {
     color: red;
-}
-
-#login {
-    padding: 8px 16px;
-    border-bottom-left-radius: 8px;
-    background: white;
 }
 
 /* table */
