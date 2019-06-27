@@ -158,7 +158,7 @@
                 </div>
                 <div class="chat right">
                     <p id="login">
-                        Logged in as<xsl:text>&#xA0;</xsl:text><b><xsl:value-of select="$name"/></b><xsl:text>&#xA0;</xsl:text>(<a href="/bjx/logout">logout</a>)
+                        Logged in as<xsl:text>&#xA0;</xsl:text><b><xsl:value-of select="$name"/></b>
                     </p>
                     <table>
                         <xsl:for-each select="/game/chat/message">
