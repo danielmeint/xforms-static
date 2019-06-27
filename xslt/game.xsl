@@ -11,12 +11,12 @@
         <div>
             <a id="exit-button" class="btn btn-secondary left" href="/bjx">&lt; Menu</a>
             <form class="right bottom" action="/bjx/games/{/game/@id}/draw" method="post" target="hiddenFrame">
-                <input type="submit" value="&#8634; Redraw Game"/>
+                <input class="btn btn-secondary" type="submit" value="&#8634; Redraw Game"/>
             </form>
             <span id="login" class="right">
                 Logged in as<xsl:text>&#xA0;</xsl:text><b><xsl:value-of select="$name"/></b><xsl:text>&#xA0;</xsl:text>(<a href="/bjx/logout">logout</a>)
             </span>
-            <div class="container flex-container">
+            <div class="flex-container">
                 <svg viewBox="-100 0 1000 520">
                     <!-- table dimensions: 800 x 450 -->
                     <use href="/static/bjx/svg/table.svg#table" x="0" y="0"/>
@@ -119,7 +119,7 @@
                         
                         <xsl:when test="/game/@state = 'betting' and $self/@state = 'active'">
                             <!-- Betting stage -->
-                            <form action="/bjx/games/{/game/@id}/{$name}/bet" method="POST" target="hiddenFrame">
+                            <form action="/bjx/games/{/game/@id}/bet" method="POST" target="hiddenFrame">
                                 <input type="number" name="bet" min="0" max="{$self/balance}"/>
                                 <input class="btn" type="submit" value = "Bet"/>
                             </form>
@@ -128,32 +128,34 @@
                         <xsl:when test="/game/@state = 'playing' and $self/@state = 'active'">
                             <!-- Playing stage -->
                             <xsl:if test="$self/hand/@value &lt; 21">
-                                <form action="/bjx/games/{/game/@id}/{$name}/hit" method="POST" target="hiddenFrame">
+                                <form action="/bjx/games/{/game/@id}/hit" method="POST" target="hiddenFrame">
                                     <input class="btn" type="submit" value="Hit"/>
                                 </form>
                             </xsl:if>
-                            <form action="/bjx/games/{/game/@id}/{$name}/stand" method="POST" target="hiddenFrame">
+                            <form action="/bjx/games/{/game/@id}/stand" method="POST" target="hiddenFrame">
                                 <input class="btn" type="submit" value="Stand"/>
                             </form>
                         </xsl:when>
                         
                         <xsl:when test="/game/@state = 'evaluated'">
-                            <xsl:choose>
-                                <xsl:when test="$self/@state = 'won'">
-                                    You win<xsl:text>&#xA0;</xsl:text><span class='earnings won'><xsl:value-of select="$self/bet"/></span>
-                                </xsl:when>
-                                
-                                <xsl:when test="$self/@state = 'tied'">
-                                    You tied and keep your bet.
-                                </xsl:when>
-                                
-                                <xsl:when test="$self/@state = 'lost'">
-                                    You lost<xsl:text>&#xA0;</xsl:text><span class='earning lost'><xsl:value-of select="$self/bet"/></span>
-                                </xsl:when>
-                            </xsl:choose>
                             <form action="/bjx/games/{/game/@id}/newRound" method="POST" target="hiddenFrame">
                                 <input class="btn" type="submit" value="New Round"/>
                             </form>
+                            <p>
+                                <xsl:choose>
+                                    <xsl:when test="$self/@state = 'won'">
+                                        You win<xsl:text>&#xA0;</xsl:text><span class='earnings won'>$<xsl:value-of select="$self/bet"/></span>
+                                    </xsl:when>
+                                    
+                                    <xsl:when test="$self/@state = 'tied'">
+                                        You tie and keep your bet.
+                                    </xsl:when>
+                                    
+                                    <xsl:when test="$self/@state = 'lost'">
+                                        You lose<xsl:text>&#xA0;</xsl:text><span class='earnings lost'>$<xsl:value-of select="$self/bet"/></span>
+                                    </xsl:when>
+                                </xsl:choose>
+                            </p>
                         </xsl:when>
                     </xsl:choose>
                 </div>

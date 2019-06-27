@@ -16,34 +16,52 @@ Daniel Meint
     box-sizing: border-box;
 }
 
-.flex-container {
-    display: flex;
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
 }
 
-.container {
+.flex-container {
+    display: flex;
     flex-direction: column;
     align-items: center;
 
     max-height: 100vh;
 }
 
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
 .left {
     position: absolute;
     left: 0;
+    border-bottom-right-radius: 8px;
 }
 
 .right {
     position: absolute;
     right: 0;
+    border-bottom-left-radius: 8px;
 }
 
 .bottom {
     position: abolute;
     bottom: 0;
+}
+
+.left.bottom {
+    border-radius: 0 8px 0 0;
+}
+
+.right.bottom {
+    border-radius: 8px 0 0 0;
 }
 
 svg {
@@ -58,6 +76,18 @@ svg {
 
 .functions form {
     display: inline-block;
+}
+
+table {
+    width: 100%;
+}
+
+table {
+    text-align: left;
+}
+
+form {
+    margin: 0;
 }
 
 #games-table {
@@ -84,6 +114,83 @@ svg {
   color: inherit;
 }
 
+input {
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    border-width: 2px;
+    
+    font-size: 1rem;
+}
+
+/* buttons */
+.btn {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    cursor: pointer;
+
+    text-decoration: none;
+    
+    background-color: var(--primary-color);
+    color: white;
+    
+    border-color: transparent;
+    border-radius: .25rem;
+    border-width: 2px;
+    display: inline-block;
+    
+    padding: .375rem .75rem;
+    
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    
+    transition: color .15s ease-in-out, background-color .15s ease-in-out,border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.btn:hover {
+    background-color: darkolivegreen;
+}
+
+.btn-small {
+    width: 112px;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: white;
+}
+
+.btn-danger {
+  color: white;
+  background-color: #d9534f;
+}
+
+.btn-danger:hover {
+  color: white;
+  background-color: #c9302c;
+}
+
+.btn-disabled, .btn-disabled:hover {
+  background-color: #6c757d;
+  color: white;
+  
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.hidden {
+    display: none;
+}
+
 svg .label {
     fill: white;
     stroke: black;
@@ -104,8 +211,16 @@ svg .label > text.name {
 }
 
 svg .label > text.hand_value {
-    font-size: 32px;
+    font-size: 2rem;
     font-style: italic;
+}
+
+.earnings.won {
+    color: var(--primary-color);
+}
+
+.earnings.lost {
+    color: red;
 }
 
 #login {
@@ -119,16 +234,16 @@ svg .label > text.hand_value {
     font-family: Helvetica, sans-serif;
     fill: var(--secondary-color);
     text-transform: uppercase;
-    font-size: 32px;
+    font-size: 2rem;
 }
 
 #table text.heavy {
     font-weight: bold;
-    font-size: 50px;
+    font-size: 4rem;
 }
 
 #table text.small {
-    font-size: 24px;
+    font-size: 1.5rem;
 }
 
 #tableBase {
@@ -215,63 +330,6 @@ g[id *= 'clubs'] text,
 /* TODO: better scaling for chips in game */
 #player_cards .bet.chip text {
     font-size: 16px;
-}
-
-
-
-
-
-/* buttons */
-.btn {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-
-    text-decoration: none;
-    
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    border-radius: 28px;
-    border: 2px solid var(--primary-color);
-    margin: 8px;
-    display: inline-block;
-    cursor: pointer;
-    
-    padding: 16px 32px;
-    
-    text-align: center;
-    font-weight: bold;
-    font-size: 17px;
-    text-decoration: none;
-}
-
-.btn:hover {
-    background-color: darkolivegreen;
-}
-
-.btn-small {
-    width: 112px;
-}
-
-.btn-secondary {
-    background-color: white;
-    color: var(--primary-color);
-}
-
-.btn-secondary:hover {
-    background-color: white;
-}
-
-.btn-disabled, .btn-disabled:hover {
-  background-color: #6c757d;
-  color: white;
-  
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.hidden {
-    display: none;
 }
 
 /* cards */
