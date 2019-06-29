@@ -129,7 +129,7 @@ form {
     margin: 0 1rem;
 }
 
-.chat td {
+.chat td.msg {
     max-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -163,6 +163,10 @@ input {
     border-width: 2px;
     
     font-size: 1rem;
+}
+
+input[type='text']:hover, input[type='text']:focus, input[type='text']:active, input[type='number']:hover, input[type='number']:focus, input[type='number']:active {
+    border-color: var(--primary-color);
 }
 
 /* buttons */
