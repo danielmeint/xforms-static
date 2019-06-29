@@ -9,7 +9,7 @@
 
     <xsl:template match="/">
         <div>
-            <a id="exit-button" class="btn btn-secondary left" href="/bjx">&lt; Menu</a>
+            <a id="exit-button" class="btn btn-secondary left top" href="/bjx">◀ Menu</a>
             <form class="right bottom" action="/bjx/games/{/game/@id}/draw" method="post" target="hiddenFrame">
                 <input class="btn btn-secondary" type="submit" value="&#8634; Redraw Game"/>
             </form>
@@ -156,7 +156,7 @@
                         </xsl:when>
                     </xsl:choose>
                 </div>
-                <div class="chat right">
+                <div class="chat right top">
                     <p id="login">
                         Logged in as<xsl:text>&#xA0;</xsl:text><b><xsl:value-of select="$name"/></b>
                     </p>
