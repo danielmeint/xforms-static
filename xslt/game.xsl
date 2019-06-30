@@ -74,14 +74,14 @@
                                             <xsl:value-of select="bet"/>
                                         </text>
                                     </g>
+                                    <g class="card_group">
+                                        <xsl:for-each select="hand/card">
+                                            <use href="/static/bjx/svg/cards.svg#{@value}_{@suit}"
+                                                style="transform: translate({(position() - 1) * 40}px, {(position() - 1) * 4}px)"
+                                            />
+                                        </xsl:for-each>
+                                    </g>
                                 </xsl:if>
-                                <g class="card_group">
-                                    <xsl:for-each select="hand/card">
-                                        <use href="/static/bjx/svg/cards.svg#{@value}_{@suit}"
-                                            style="transform: translate({(position() - 1) * 40}px, {(position() - 1) * 4}px)"
-                                        />
-                                    </xsl:for-each>
-                                </g>
                                 <xsl:if test="/game/@state = 'playing'">
                                     <g>
                                         <xsl:choose>
@@ -99,7 +99,16 @@
                                             <xsl:value-of select="@name"/>
                                         </text>
                                         <text class="hand_value" x="30px" y="115px" xmlns="http://www.w3.org/2000/svg">
-                                            <xsl:value-of select="hand/@value"/>
+                                            <xsl:choose>
+                                                <xsl:when test="bet > 0">
+                                                    <xsl:value-of select="hand/@value"/>
+                                                </xsl:when>
+                                                
+                                                <xsl:otherwise>
+                                                    Sits out.
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                            
                                         </text>
                                     </g>
                                 </xsl:if>
@@ -109,6 +118,10 @@
                 </svg>
                 <div class="functions">
                     <xsl:choose>
+                        <xsl:when test="/game/@state = 'playing' and $self/bet = 0">
+                            <p>You are sitting out because you did not put down a bet.</p>
+                        </xsl:when>
+                        
                         <xsl:when test="(/game/@state = 'betting' or /game/@state = 'playing') and $self/@state = 'inactive'">
                             <!-- Player is inactive -->
                             <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
@@ -124,6 +137,11 @@
                         
                         <xsl:when test="/game/@state = 'playing' and $self/@state = 'active'">
                             <!-- Playing stage -->
+                            <xsl:if test="count($self/hand/card) &lt; 3">
+                                <form action="/bjx/games/{/game/@id}/double" method="POST" target="hiddenFrame">
+                                    <input class="btn btn-secondary" type="submit" value="Double Down"/>
+                                </form>
+                            </xsl:if>
                             <xsl:if test="$self/hand/@value &lt; 21">
                                 <form action="/bjx/games/{/game/@id}/hit" method="POST" target="hiddenFrame">
                                     <input class="btn" type="submit" value="Hit"/>
@@ -138,21 +156,23 @@
                             <form action="/bjx/games/{/game/@id}/newRound" method="POST" target="hiddenFrame">
                                 <input class="btn" type="submit" value="New Round"/>
                             </form>
-                            <p>
-                                <xsl:choose>
-                                    <xsl:when test="$self/@state = 'won'">
-                                        You win<xsl:text>&#xA0;</xsl:text><span class='earnings won'>$<xsl:value-of select="$self/bet"/></span>
-                                    </xsl:when>
-                                    
-                                    <xsl:when test="$self/@state = 'tied'">
-                                        You tie and keep your bet.
-                                    </xsl:when>
-                                    
-                                    <xsl:when test="$self/@state = 'lost'">
-                                        You lose<xsl:text>&#xA0;</xsl:text><span class='earnings lost'>$<xsl:value-of select="$self/bet"/></span>
-                                    </xsl:when>
-                                </xsl:choose>
-                            </p>
+                            <xsl:if test="$self/bet > 0">
+                                <p>
+                                    <xsl:choose>
+                                        <xsl:when test="$self/@state = 'won'">
+                                            You win<xsl:text>&#xA0;</xsl:text><span class='earnings won'>$<xsl:value-of select="$self/bet"/></span>
+                                        </xsl:when>
+                                        
+                                        <xsl:when test="$self/@state = 'tied'">
+                                            You tie and keep your bet.
+                                        </xsl:when>
+                                        
+                                        <xsl:when test="$self/@state = 'lost'">
+                                            You lose<xsl:text>&#xA0;</xsl:text><span class='earnings lost'>$<xsl:value-of select="$self/bet"/></span>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </p>
+                            </xsl:if>
                         </xsl:when>
                     </xsl:choose>
                 </div>
