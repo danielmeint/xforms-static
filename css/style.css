@@ -131,6 +131,12 @@ form {
     max-width: 256px;
 }
 
+.chat tbody {
+    display: block;
+    height: calc(100vh - 150px);
+    overflow: scroll;
+}
+
 .chat td.msg {
     max-width: 0;
     overflow: hidden;
