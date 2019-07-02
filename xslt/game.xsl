@@ -17,23 +17,44 @@
                 <svg viewBox="-100 0 1000 520">
                     <!-- table dimensions: 800 x 450 -->
                     <use href="/static/bjx/svg/table.svg#table" x="0" y="0"/>
-                    
-                    <g class="card_group" id="dealer">
-                        <xsl:choose>
-                            <xsl:when test="game/@state = 'playing' and count(game/dealer/hand/card) = 2">
-                                <use
-                                    href="/static/bjx/svg/cards.svg#{game/dealer/hand/card[1]/@value}_{game/dealer/hand/card[1]/@suit}"/>
-                                <use href="/static/bjx/svg/cards.svg#back"
-                                    style="transform: translate(40px, 4px)"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:for-each select="game/dealer/hand/card">
-                                    <use href="/static/bjx/svg/cards.svg#{@value}_{@suit}"
-                                        style="transform: translate({(position() - 1) * 40}px, {(position() - 1) * 4}px)"
-                                    />
-                                </xsl:for-each>
-                            </xsl:otherwise>
-                        </xsl:choose>
+                    <g id="dealer">
+                        <g class="card_group">
+                            <xsl:choose>
+                                <xsl:when test="game/@state = 'playing'">
+                                    <!-- only show the dealer's first card -->
+                                    <use
+                                        href="/static/bjx/svg/cards.svg#{game/dealer/hand/card[1]/@value}_{game/dealer/hand/card[1]/@suit}"/>
+                                    <use href="/static/bjx/svg/cards.svg#back"
+                                        style="transform: translate(40px, 4px)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:for-each select="game/dealer/hand/card">
+                                        <use href="/static/bjx/svg/cards.svg#{@value}_{@suit}"
+                                            style="transform: translate({(position() - 1) * 40}px, {(position() - 1) * 4}px)"
+                                        />
+                                    </xsl:for-each>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </g>
+                        <g class="label label-hand">
+                            <rect x="10px" y="70px" rx="25" ry="25" width="80" height="50"/>
+                            <text class="name" x="30px" y="85px">
+                                Dealer
+                            </text>
+                            <text class="hand_value" x="30px" y="115px" xmlns="http://www.w3.org/2000/svg">
+                                <xsl:choose>
+                                    <xsl:when test="/game/@state = 'playing'">
+                                        <!-- only show value of the visible card -->
+                                        <xsl:value-of select="/game/dealer/hand/card[1]/@value"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="/game/dealer/hand/@value"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                
+                            </text>
+                        </g>
+                        
                     </g>
                     <g id="player_cards">
                         <xsl:for-each select="/game/player">
@@ -82,27 +103,25 @@
                                         />
                                     </xsl:for-each>
                                 </g>
-                                <xsl:if test="/game/@state = 'playing'">
-                                    <g>
-                                        <xsl:choose>
-                                            <xsl:when test="@state='active'">
-                                                <xsl:attribute name="class">label label-hand label-active</xsl:attribute>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:attribute name="class">label label-hand</xsl:attribute>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                      
+                                <g>
+                                    <xsl:choose>
+                                        <xsl:when test="@state='active'">
+                                            <xsl:attribute name="class">label label-hand label-active</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:attribute name="class">label label-hand</xsl:attribute>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                  
 
-                                        <rect x="10px" y="70px" rx="25" ry="25" width="80" height="50"/>
-                                        <text class="name" x="30px" y="85px">
-                                            <xsl:value-of select="@name"/>
-                                        </text>
-                                        <text class="hand_value" x="30px" y="115px" xmlns="http://www.w3.org/2000/svg">
-                                            <xsl:value-of select="hand/@value"/>
-                                        </text>
-                                    </g>
-                                </xsl:if>
+                                    <rect x="10px" y="70px" rx="25" ry="25" width="80" height="50"/>
+                                    <text class="name" x="30px" y="85px">
+                                        <xsl:value-of select="@name"/>
+                                    </text>
+                                    <text class="hand_value" x="30px" y="115px" xmlns="http://www.w3.org/2000/svg">
+                                        <xsl:value-of select="hand/@value"/>
+                                    </text>
+                                </g>
                             </g>
                         </xsl:for-each>
                     </g>
