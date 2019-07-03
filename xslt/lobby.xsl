@@ -17,13 +17,13 @@
                             <xsl:when test="$screen = 'menu'">
                                 <h1>XForms' Multi-Client Blackjack</h1>
                                 <form class="form-menu" action="/bjx/games" method="post">
-                                    <input class="btn btn-menu" type="submit" value="Create new Game" />
+                                    <input class="btn btn-menu" type="submit" value="New Game" />
                                 </form>
                                 <form class="form-menu">
                                     <a class="btn btn-menu" href="/bjx/games">Join Game</a>
                                 </form>
                                 <form class="form-menu">
-                                    <a class="btn btn-menu" href="/bjx/highscores">Highscores</a>
+                                    <a class="btn btn-menu btn-secondary" href="/bjx/highscores">Highscores</a>
                                 </form>
                             </xsl:when>
                             
@@ -65,10 +65,8 @@
                                                         <td>
                                                             <xsl:value-of select="player[@state = 'active']/@name" />=<xsl:value-of select="@state" /></td>
                                                         <td>
-                                                            <form action="/bjx/games/{@id}/join" method="POST">
-                                                                <input class="btn btn-secondary" type="submit" value="Join" />
-                                                            </form>
-                                                            <form action="/bjx/games/{@id}/join" method="POST">
+                                                            <a class="btn btn-secondary" href="/bjx/games/{@id}">Open</a>
+                                                            <form action="/bjx/games/{@id}/delete" method="POST">
                                                                 <input class="btn btn-danger" type="submit" value="Delete" />
                                                             </form>
                                                         </td>

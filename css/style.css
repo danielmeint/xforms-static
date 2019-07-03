@@ -43,7 +43,8 @@ body {
 }
 
 .content {
-    width: 1024px;
+    width: calc(100vw - 4rem);
+    max-width: 1024px;
 
     background: white;
     padding: 1rem 3rem;
@@ -173,7 +174,7 @@ input {
     font-size: 1rem;
 }
 
-input[type='text']:hover, input[type='text']:focus, input[type='text']:active, input[type='number']:hover, input[type='number']:focus, input[type='number']:active {
+input:not([type="submit"]):hover, input:not([type="submit"]):focus {
     border-color: var(--primary-color);
 }
 
@@ -222,7 +223,7 @@ input[type='text']:hover, input[type='text']:focus, input[type='text']:active, i
 }
 
 .btn-secondary:hover {
-    background-color: white;
+    background-color: honeydew;
 }
 
 .btn-danger {
@@ -250,6 +251,7 @@ form.form-menu {
 
 .btn-menu {
     width: 20rem;
+    max-width: 100%;
     font-size: 1.5rem;
 }
 
