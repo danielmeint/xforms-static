@@ -213,7 +213,7 @@
                             </tr>
                         </xsl:for-each>
                     </table>
-                    <form action="/bjx/games/{/game/@id}/{$self/@name}/chat" method="POST" target="hiddenFrame">
+                    <form action="/bjx/games/{/game/@id}/chat" method="POST" target="hiddenFrame">
                         <input type="text" name="msg"/>
                         <input class="btn" type="submit" value="Chat"/>
                     </form>
