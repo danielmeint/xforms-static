@@ -145,6 +145,50 @@ form {
     white-space: nowrap;
 }
 
+.chat table td.author {
+    width: 20%;
+    color: var(--primary-color);
+}
+
+.chat table th, .chat table td {
+    padding: .5rem;
+}
+
+.chat #chatToggle {
+    display: none;
+}
+
+.chat label {
+    display: block;
+}
+
+.chat label {
+    text-align: right;
+    padding: 0 0 .5rem 0;
+}
+
+.chat label:hover {
+    cursor:pointer
+}
+
+.chat input#chatToggle:checked ~ *:not(#showChat) {
+    display: none;
+}
+
+.chat #showChat {
+    display: none;
+}
+
+.chat input#chatToggle:checked ~ #showChat {
+    display: block;
+}
+
+.chat label svg {
+    fill: var(--primary-color);
+    width: 2rem;
+    height: 2rem;
+}
+
 #games-table th:last-child, #games-table td:last-child {
     text-align: right;
 }
@@ -155,15 +199,6 @@ form {
 
 #games-table tbody > tr:hover form {
     opacity: 1;
-}
-
-.chat table td.author {
-    width: 20%;
-    color: var(--primary-color);
-}
-
-.chat table th, .chat table td {
-    padding: .5rem;
 }
 
 input {
@@ -244,15 +279,22 @@ input:not([type="submit"]):hover, input:not([type="submit"]):focus {
   opacity: 0.5;
 }
 
-form.form-menu {
-    display: block;
-    padding: .5rem;
+.btn svg {
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .btn-menu {
     width: 20rem;
     max-width: 100%;
     font-size: 1.5rem;
+}
+
+form.form-menu {
+    display: block;
+    padding: .5rem;
 }
 
 .hidden {

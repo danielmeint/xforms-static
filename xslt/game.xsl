@@ -10,7 +10,9 @@
     <xsl:template match="/">
         <div>
             <form class="right bottom" action="/bjx/games/{/game/@id}/draw" method="post" target="hiddenFrame">
-                <input class="btn btn-secondary" type="submit" value="&#8634; Redraw Game"/>
+                <button class="btn btn-secondary" type="submit">
+                    &#8634; Redraw Game
+                </button>
             </form>
             <div class="flex-container">
                 <svg viewBox="-100 0 1000 520">
@@ -130,7 +132,9 @@
                         <xsl:when test="$self">
                             <!-- client is participating in the game -->
                             <form class="top left" action="/bjx/games/{/game/@id}/leave" method="post" target="hiddenFrame">
-                                <input class="btn btn-secondary" type="submit" value="× Leave"/>
+                                <button class="btn btn-secondary" type="submit">
+                                    Leave
+                                </button>
                             </form>
                             
                             <xsl:choose>
@@ -144,7 +148,9 @@
                                     <!-- Betting stage -->
                                     <form action="/bjx/games/{/game/@id}/bet" method="POST" target="hiddenFrame">
                                         <input type="number" name="bet" min="1" max="{$self/balance}"/>
-                                        <input class="btn" type="submit" value = "Bet"/>
+                                        <button class="btn" type="submit">
+                                            Bet
+                                        </button>
                                     </form>
                                 </xsl:when>
                                 
@@ -152,22 +158,22 @@
                                     <!-- Playing stage -->
                                     <xsl:if test="count($self/hand/card) &lt; 3">
                                         <form action="/bjx/games/{/game/@id}/double" method="POST" target="hiddenFrame">
-                                            <input class="btn btn-secondary" type="submit" value="Double Down"/>
+                                            <button class="btn btn-secondary" type="submit">Double Down</button>
                                         </form>
                                     </xsl:if>
                                     <xsl:if test="$self/hand/@value &lt; 21">
                                         <form action="/bjx/games/{/game/@id}/hit" method="POST" target="hiddenFrame">
-                                            <input class="btn" type="submit" value="Hit"/>
+                                            <button class="btn" type="submit">Hit</button>
                                         </form>
                                     </xsl:if>
                                     <form action="/bjx/games/{/game/@id}/stand" method="POST" target="hiddenFrame">
-                                        <input class="btn" type="submit" value="Stand"/>
+                                        <button class="btn" type="submit">Stand</button>
                                     </form>
                                 </xsl:when>
                                 
                                 <xsl:when test="/game/@state = 'evaluated'">
                                     <form action="/bjx/games/{/game/@id}/newRound" method="POST" target="hiddenFrame">
-                                        <input class="btn" type="submit" value="New Round"/>
+                                        <button class="btn" type="submit">New Round</button>
                                     </form>
                                     <p>
                                         <xsl:choose>
@@ -192,15 +198,23 @@
                             <p>You are<xsl:text>&#xA0;</xsl:text><b>spectating</b><xsl:text>&#xA0;</xsl:text>this game.</p>
                             <a class="btn btn-secondary" href="/bjx">◀ Menu</a>
                             <form action='/bjx/games/{/game/@id}/join' method='POST' target="hiddenFrame">
-                                <input class="btn" type='submit' value="Join"/>
+                                <button class="btn" type='submit'>Join</button>
                             </form>
                         </xsl:otherwise>
                     </xsl:choose>
                 </div>
                 <div class="chat right top">
-                    <p id="login">
-                        Logged in as<xsl:text>&#xA0;</xsl:text><b><xsl:value-of select="$name"/></b>
-                    </p>
+                    <input type="checkbox" id="chatToggle"/>
+                    <label id="hideChat" for="chatToggle">
+                        <svg>
+                            <use href="/static/bjx/svg/solid.svg#times"/>
+                        </svg>
+                    </label>
+                    <label id="showChat" for="chatToggle">
+                        <svg>
+                            <use href="/static/bjx/svg/solid.svg#comments"/>
+                        </svg>
+                    </label>
                     <table>
                         <xsl:for-each select="/game/chat/message">
                             <tr>
@@ -214,8 +228,8 @@
                         </xsl:for-each>
                     </table>
                     <form action="/bjx/games/{/game/@id}/chat" method="POST" target="hiddenFrame">
-                        <input type="text" name="msg"/>
-                        <input class="btn" type="submit" value="Chat"/>
+                        <input type="text" name="msg" placeholder="Chatting as {$name}"/>
+                        <button class="btn" type="submit">Chat</button>
                     </form>
                 </div>
                 <iframe class="hidden" name="hiddenFrame"/>
