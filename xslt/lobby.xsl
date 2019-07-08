@@ -9,8 +9,14 @@
                 <link rel="stylesheet" type="text/css" href="/static/bjx/css/style.css" />
             </head>
             <body>
-                <span id="login" class="right top"> Logged in
-                    as<xsl:text> </xsl:text><b><xsl:value-of select="$name" /></b><xsl:text> </xsl:text>(<a href="/bjx/logout">logout</a>) </span>
+                <span id="login" class="right top">
+                    <span><xsl:value-of select="$name"/></span>
+                    <a class="btn btn-secondary" href="/bjx/logout">
+                        <svg>
+                            <use href="/static/bjx/svg/solid.svg#sign-out-alt"/>
+                        </svg>
+                    </a>
+                </span>
                 <div class="flex-container flex-center">
                     <div class="content">
                         <xsl:choose>

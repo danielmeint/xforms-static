@@ -218,12 +218,24 @@
                     <table>
                         <xsl:for-each select="/game/chat/message">
                             <tr>
-                                <td class="author">
-                                    <xsl:value-of select="@author"/>
-                                </td>
-                                <td class="msg">
-                                    <xsl:value-of select="text()"/>
-                                </td>
+                                <xsl:choose>
+                                    <xsl:when test="@author = 'INFO'">
+                                        <td colspan="2" class="msg msg-info">
+                                            <xsl:value-of select="text()"/>
+                                        </td>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <td class="author">
+                                            <xsl:value-of select="@author"/>
+                                        </td>
+                                        <td class="msg">
+                                            <xsl:value-of select="text()"/>
+                                        </td>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                
+                                
+
                             </tr>
                         </xsl:for-each>
                     </table>
