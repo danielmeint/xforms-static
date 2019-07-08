@@ -3,17 +3,12 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
 
     <xsl:param name="name"/>
+    <xsl:param name="balance"/>
     
     <xsl:variable name="self" select="/game/player[@name = $name]"/>
     <xsl:variable name="activePlayer" select="/game/player[@state = 'active']"/>
 
     <xsl:template match="/">
-        <div>
-            <form class="right bottom" action="/bjx/games/{/game/@id}/draw" method="post" target="hiddenFrame">
-                <button class="btn btn-secondary" type="submit">
-                    &#8634; Redraw Game
-                </button>
-            </form>
             <div class="flex-container">
                 <svg viewBox="-100 0 1000 520">
                     <!-- table dimensions: 800 x 450 -->
@@ -190,6 +185,7 @@
                                             </xsl:when>
                                         </xsl:choose>
                                     </p>
+                                    <p>New balance: $<xsl:value-of select="$balance"/></p>
                                 </xsl:when>
                             </xsl:choose>
                         </xsl:when>
@@ -203,18 +199,8 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </div>
-                <div class="chat right top">
+                <div class="chat left bottom">
                     <input type="checkbox" id="chatToggle"/>
-                    <label id="hideChat" for="chatToggle">
-                        <svg>
-                            <use href="/static/bjx/svg/solid.svg#times"/>
-                        </svg>
-                    </label>
-                    <label id="showChat" for="chatToggle">
-                        <svg>
-                            <use href="/static/bjx/svg/solid.svg#comments"/>
-                        </svg>
-                    </label>
                     <table>
                         <xsl:for-each select="/game/chat/message">
                             <tr>
@@ -233,19 +219,30 @@
                                         </td>
                                     </xsl:otherwise>
                                 </xsl:choose>
-                                
-                                
-
                             </tr>
                         </xsl:for-each>
                     </table>
+                    <label id="hideChat" for="chatToggle">
+                        <svg>
+                            <use href="/static/bjx/svg/solid.svg#times"/>
+                        </svg>
+                    </label>
+                    <label id="showChat" for="chatToggle">
+                        <svg>
+                            <use href="/static/bjx/svg/solid.svg#comments"/>
+                        </svg>
+                    </label>
                     <form action="/bjx/games/{/game/@id}/chat" method="POST" target="hiddenFrame">
                         <input type="text" name="msg" placeholder="Chatting as {$name}"/>
                         <button class="btn" type="submit">Chat</button>
                     </form>
                 </div>
+                <form class="right bottom" action="/bjx/games/{/game/@id}/draw" method="post" target="hiddenFrame">
+                    <button class="btn btn-secondary" type="submit">
+                        &#8634; Redraw Game
+                    </button>
+                </form>
                 <iframe class="hidden" name="hiddenFrame"/>
             </div>
-        </div>
     </xsl:template>
 </xsl:stylesheet>

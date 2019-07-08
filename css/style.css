@@ -128,10 +128,6 @@ form {
     display: inline-block;
 }
 
-#login {
-    font-weight: bold;
-}
-
 #login svg {
     width: 1rem;
     height: 1rem;
@@ -140,10 +136,6 @@ form {
 #login span {
     vertical-align: middle;
     margin-right: .5rem;
-}
-
-.chat {
-    max-width: 256px;
 }
 
 .chat tbody {
@@ -178,16 +170,6 @@ form {
     display: none;
 }
 
-.chat label {
-    display: block;
-    float: right;
-}
-
-.chat label {
-    text-align: right;
-    padding: 0 0 .5rem 0;
-}
-
 .chat label:hover {
     cursor:pointer
 }
@@ -202,6 +184,10 @@ form {
 
 .chat input#chatToggle:checked ~ #showChat {
     display: block;
+}
+
+.chat #hideChat {
+    vertical-align: top;
 }
 
 .chat label svg {
