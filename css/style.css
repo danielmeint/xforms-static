@@ -94,9 +94,24 @@ svg {
 }
 
 /* gui elements */
-#arrow_down {
-  fill: red;
-  animation: arrow 1s infinite;
+a:link:not(.btn) {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+a:visited:not(.btn) {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+a:hover:not(.btn) {
+  text-decoration: underline;
+  color: darkolivegreen;
+}
+
+a:active:not(.btn) {
+  text-decoration: underline;
+  color: darkolivegreen;
 }
 
 .functions {

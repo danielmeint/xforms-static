@@ -4,18 +4,18 @@
     <xsl:output indent="no" method="xml" omit-xml-declaration="yes"/>
     <xsl:param name="screen"/>
     <xsl:param name="name"/>
+    <xsl:param name="balance"/>
+    
     <xsl:template match="/">
-        <div>
-            <span id="login" class="right top">
-                <span>
-                    <xsl:value-of select="$name"/>
-                </span>
+        <div class="content">
+            <div id="login" class="right top">
+                <span><b><a href="/bjx/profile"><xsl:value-of select="$name"/></a></b> ($<xsl:value-of select="$balance"/>)</span>
                 <a class="btn btn-secondary" href="/bjx/logout">
                     <svg>
                         <use href="/static/bjx/svg/solid.svg#sign-out-alt"/>
                     </svg>
                 </a>
-            </span>
+            </div>
             <a class="btn btn-secondary left top" href="/bjx">◀ Menu</a>
             <xsl:choose>
                 <xsl:when test="$screen = 'games'">
@@ -99,6 +99,18 @@
                             </xsl:for-each>
                         </tbody>
                     </table>
+                </xsl:when>
+                
+                <xsl:when test="$screen = 'profile'">
+                        <h2><xsl:value-of select="/user/@name"/></h2>
+                        <p>Balance: $<xsl:value-of select="/user/balance"/></p>
+                        <p>Highscore: $<xsl:value-of select="/user/highscore"/></p>
+                        <form action="/bjx/deposit" method="POST">
+                            <input type="number" name="amount"/>
+                            <button type="submit" class="btn">
+                                Deposit
+                            </button>
+                        </form>
                 </xsl:when>
             </xsl:choose>
         </div>
