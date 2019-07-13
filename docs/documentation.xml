@@ -37,16 +37,16 @@
     <section>
         <title>Description of the case study</title>
         <para>We implement the popular casino game Blackjack as a multi-client web application.
-            Globally, there are a variety of rulesets with slight differences. We seek to employ the
-            most universally accepted variation commonly found in Las Vegas casinos.</para>
+            Globally, there are a variety of rulesets with slight differences. We seek to present
+            the most universally accepted variation, commonly found in Las Vegas casinos.</para>
         <para>Up to five <emphasis>players</emphasis> compete not against each other, but separately
             against the <emphasis>dealer</emphasis>. The objective of each player is to draw cards
             and maximize the sum of their respective values (<emphasis>hand value</emphasis>)
             without exceeding a sum of 21 (<emphasis>bust</emphasis>). Players win by achieving one
-            of the following final game states:
-            <itemizedlist>
+            of the following final game states: <itemizedlist>
                 <listitem>
-                    <para>A hand value of 21 with only two cards (<emphasis>blackjack</emphasis>)</para>
+                    <para>A hand value of 21 with only two cards
+                        (<emphasis>blackjack</emphasis>)</para>
                 </listitem>
                 <listitem>
                     <para>A value higher than dealer's without exceeding 21</para>
@@ -56,14 +56,6 @@
                 </listitem>
             </itemizedlist>
         </para>
-        <para>Before the actual playing begins, players place their <emphasis>bets</emphasis>. Our
-            version does not limit players in the amount they want to bet, but prohitibts them from
-            playing without betting at all.</para>
-        <para> At the beginning of a round, each player is dealt two cards face up. The dealer
-            receives one exposed card that everyone can see and one <emphasis>hidden</emphasis>
-            card. Now, the dealer asks each player, going clockwise around the table, whether they
-            want to improve their hand by drawing additional cards
-            (<emphasis>hit</emphasis>).</para>
         <para>The game is played with a single deck of french playing cards. Number cards are worth
             their value, e.g. the seven of hearts is worth seven points, face cards (Jack, Queen,
             and King) are worth ten points, and an Ace can be counted as either one or eleven,
@@ -71,45 +63,100 @@
             counted as eleven is referred to as a <emphasis>soft</emphasis> hand, because the value
             of the Ace will change to a one to prevent the player from busting if he was to draw
             another card and otherwise exceed 21. A card's suit is irrelevant in Blackjack.</para>
-        <para>After all players have finished their turn, the dealer players in a predetermined
-            manner: He draws cards as long as his hand is worth less than 17 points and must stand on
-            a soft 17 or better.</para>
+        <section>
+            <title>Preparation</title>
+            <para>Before the actual playing begins, players place their bets. Our version uses
+                US-dollars as currency and does not limit players in the amount they want to bet. It
+                does, however, prohitibt them from playing without betting at all. We will refer to
+                this stage of the game as the <emphasis>betting phase</emphasis> throughout the
+                following sections.</para>
+        </section>
+        <section>
+            <title>Course of a round</title>
+            <para> At the beginning of the <emphasis>playing phase</emphasis> each player is dealt
+                two cards face up. The dealer receives one exposed card that everyone can see and
+                one hidden card.</para>
+            <para>The dealer subsequently asks each player, going clockwise around the table,
+                whether they want to improve their respective hand by drawing additional cards. 
+                Each player has the following options:
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Action</td>
+                            <td>Description</td>
+                            <td>Condition</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Stand</td>
+                            <td>Ends the player's turn</td>
+                            <td>Always possible</td>
+                        </tr>
+                        <tr>
+                            <td>Hit</td>
+                            <td>The player receives another card from the deck</td>
+                            <td>Availble if the player's hand value is less than 21</td>
+                        </tr>
+                        <tr>
+                            <td>Double</td>
+                            <td>The player doubles his bet and receives exactly one more card before finishing his turn</td>
+                            <td>Available if the player only has his two initial two cards</td>
+                        </tr>
+                        <tr>
+                            <td>Insurance</td>
+                            <td>The player puts a side-bet worth half his initial bet on the outcome that the dealer has a Blackjack</td>
+                            <td>Available if the first card of the dealer is an Ace</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                
+                If a player busts, they lose the round and have to
+                pay their bet to the dealer</para>
+            <para>After all players have finished their turn, the dealer players in a predetermined
+                manner: He draws cards as long as his hand is worth less than 17 points and must
+                stand on a soft 17 or better.</para>
+        </section>
+
+
 
     </section>
     <section>
         <title>Architecture</title>
-
+        <!-- Felix -->
     </section>
     <section>
         <title>The component Model</title>
         <section>
             <title>Modeling the component Model</title>
-
+            <!-- Max -->
         </section>
         <section>
             <title>Implementing the component Model</title>
+            <!-- Max -->
         </section>
     </section>
     <section>
         <title>The component View</title>
         <section>
             <title>Modeling the component View</title>
-
+            <!-- Janik -->
         </section>
         <section>
             <title>Implementing the component View</title>
-
+            <!-- Janik -->
         </section>
     </section>
     <section>
         <title>The component Controller</title>
         <section>
             <title>Modeling the component Controller</title>
-
+            <!-- Felix -->
         </section>
         <section>
             <title>Implementing the component Controller</title>
-
+            <!-- Felix -->
         </section>
     </section>
     <section>
