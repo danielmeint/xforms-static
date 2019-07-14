@@ -12,20 +12,20 @@
             <div class="flex-container">
                 <svg viewBox="-100 0 1000 520">
                     <!-- table dimensions: 800 x 450 -->
-                    <use href="/static/bjx/svg/table.svg#table" x="0" y="0"/>
+                    <use href="/static/xforms-static/svg/table.svg#table" x="0" y="0"/>
                     <g id="dealer">
                         <g class="card_group">
                             <xsl:choose>
                                 <xsl:when test="game/@state = 'playing'">
                                     <!-- only show the dealer's first card -->
                                     <use
-                                        href="/static/bjx/svg/cards.svg#{game/dealer/hand/card[1]/@value}_{game/dealer/hand/card[1]/@suit}"/>
-                                    <use href="/static/bjx/svg/cards.svg#back"
+                                        href="/static/xforms-static/svg/cards.svg#{game/dealer/hand/card[1]/@value}_{game/dealer/hand/card[1]/@suit}"/>
+                                    <use href="/static/xforms-static/svg/cards.svg#back"
                                         style="transform: translate(40px, 4px)"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:for-each select="game/dealer/hand/card">
-                                        <use href="/static/bjx/svg/cards.svg#{@value}_{@suit}"
+                                        <use href="/static/xforms-static/svg/cards.svg#{@value}_{@suit}"
                                             style="transform: translate({(position() - 1) * 40}px, {(position() - 1) * 4}px)"
                                         />
                                     </xsl:for-each>
@@ -86,7 +86,7 @@
                                                 <xsl:attribute name="class">bet chip</xsl:attribute>
                                             </xsl:otherwise>
                                         </xsl:choose>
-                                        <use href="/static/bjx/svg/chips.svg#chip" width="50" height="50"/>
+                                        <use href="/static/xforms-static/svg/chips.svg#chip" width="50" height="50"/>
                                         <text x="25" y="25" alignment-baseline="central">
                                             <xsl:value-of select="bet"/>
                                         </text>
@@ -94,7 +94,7 @@
                                 </xsl:if>
                                 <g class="card_group">
                                     <xsl:for-each select="hand/card">
-                                        <use href="/static/bjx/svg/cards.svg#{@value}_{@suit}"
+                                        <use href="/static/xforms-static/svg/cards.svg#{@value}_{@suit}"
                                             style="transform: translate({(position() - 1) * 40}px, {(position() - 1) * 4}px)"
                                         />
                                     </xsl:for-each>
@@ -124,10 +124,10 @@
                 </svg>
                 <div class="functions">
                     <div id="login" class="right top">
-                        <span><b><a href="/bjx/profile"><xsl:value-of select="$name"/></a></b> ($<xsl:value-of select="$balance"/>)</span>
-                        <a class="btn btn-secondary" href="/bjx/logout">
+                        <span><b><a href="/xforms-blackjack/profile"><xsl:value-of select="$name"/></a></b> ($<xsl:value-of select="$balance"/>)</span>
+                        <a class="btn btn-secondary" href="/xforms-blackjack/logout">
                             <svg>
-                                <use href="/static/bjx/svg/solid.svg#sign-out-alt"/>
+                                <use href="/static/xforms-static/svg/solid.svg#sign-out-alt"/>
                             </svg>
                         </a>
                     </div>
@@ -135,7 +135,7 @@
                     <xsl:choose>
                         <xsl:when test="$self">
                             <!-- client is participating in the game -->
-                            <form class="top left" action="/bjx/games/{/game/@id}/leave" method="post" target="hiddenFrame">
+                            <form class="top left" action="/xforms-blackjack/games/{/game/@id}/leave" method="post" target="hiddenFrame">
                                 <button class="btn btn-secondary" type="submit">
                                     Leave
                                 </button>
@@ -150,7 +150,7 @@
                                 
                                 <xsl:when test="/game/@state = 'betting' and $self/@state = 'active'">
                                     <!-- Betting stage -->
-                                    <form action="/bjx/games/{/game/@id}/bet" method="POST" target="hiddenFrame">
+                                    <form action="/xforms-blackjack/games/{/game/@id}/bet" method="POST" target="hiddenFrame">
                                         <input type="number" name="bet" min="1" max="{$balance}"/>
                                         <button class="btn" type="submit">
                                             Bet
@@ -161,22 +161,22 @@
                                 <xsl:when test="/game/@state = 'playing' and $self/@state = 'active'">
                                     <!-- Playing stage -->
                                     <xsl:if test="count($self/hand/card) &lt; 3">
-                                        <form action="/bjx/games/{/game/@id}/double" method="POST" target="hiddenFrame">
+                                        <form action="/xforms-blackjack/games/{/game/@id}/double" method="POST" target="hiddenFrame">
                                             <button class="btn btn-secondary" type="submit">Double Down</button>
                                         </form>
                                     </xsl:if>
                                     <xsl:if test="$self/hand/@value &lt; 21">
-                                        <form action="/bjx/games/{/game/@id}/hit" method="POST" target="hiddenFrame">
+                                        <form action="/xforms-blackjack/games/{/game/@id}/hit" method="POST" target="hiddenFrame">
                                             <button class="btn" type="submit">Hit</button>
                                         </form>
                                     </xsl:if>
-                                    <form action="/bjx/games/{/game/@id}/stand" method="POST" target="hiddenFrame">
+                                    <form action="/xforms-blackjack/games/{/game/@id}/stand" method="POST" target="hiddenFrame">
                                         <button class="btn" type="submit">Stand</button>
                                     </form>
                                 </xsl:when>
                                 
                                 <xsl:when test="/game/@state = 'evaluated'">
-                                    <form action="/bjx/games/{/game/@id}/newRound" method="POST" target="hiddenFrame">
+                                    <form action="/xforms-blackjack/games/{/game/@id}/newRound" method="POST" target="hiddenFrame">
                                         <button class="btn" type="submit">New Round</button>
                                     </form>
                                     <p>
@@ -203,13 +203,13 @@
                             <xsl:choose>
                                 <xsl:when test="1 > $balance">
                                     <!-- insufficient balance -->
-                                    <p>Insufficient funds. Replenish to your balance<xsl:text>&#xA0;</xsl:text><a href='/bjx/profile'>here</a>.</p>
-                                    <a class="btn btn-secondary" href="/bjx">◀ Menu</a>
+                                    <p>Insufficient funds. Replenish to your balance<xsl:text>&#xA0;</xsl:text><a href='/xforms-blackjack/profile'>here</a>.</p>
+                                    <a class="btn btn-secondary" href="/xforms-blackjack">◀ Menu</a>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <p>You are<xsl:text>&#xA0;</xsl:text><b>spectating</b><xsl:text>&#xA0;</xsl:text>this game.</p>
-                                    <a class="btn btn-secondary" href="/bjx">◀ Menu</a>
-                                    <form action='/bjx/games/{/game/@id}/join' method='POST' target="hiddenFrame">
+                                    <a class="btn btn-secondary" href="/xforms-blackjack">◀ Menu</a>
+                                    <form action='/xforms-blackjack/games/{/game/@id}/join' method='POST' target="hiddenFrame">
                                         <button class="btn" type='submit'>Join</button>
                                     </form>
                                 </xsl:otherwise>
@@ -242,20 +242,20 @@
                     </table>
                     <label id="hideChat" for="chatToggle">
                         <svg>
-                            <use href="/static/bjx/svg/solid.svg#times"/>
+                            <use href="/static/xforms-static/svg/solid.svg#times"/>
                         </svg>
                     </label>
                     <label id="showChat" for="chatToggle">
                         <svg>
-                            <use href="/static/bjx/svg/solid.svg#comments"/>
+                            <use href="/static/xforms-static/svg/solid.svg#comments"/>
                         </svg>
                     </label>
-                    <form action="/bjx/games/{/game/@id}/chat" method="POST" target="hiddenFrame">
+                    <form action="/xforms-blackjack/games/{/game/@id}/chat" method="POST" target="hiddenFrame">
                         <input type="text" name="msg" placeholder="Chatting as {$name}"/>
                         <button class="btn" type="submit">Chat</button>
                     </form>
                 </div>
-                <form class="right bottom" action="/bjx/games/{/game/@id}/draw" method="post" target="hiddenFrame">
+                <form class="right bottom" action="/xforms-blackjack/games/{/game/@id}/draw" method="post" target="hiddenFrame">
                     <button class="btn btn-secondary" type="submit">
                         &#8634; Redraw Game
                     </button>

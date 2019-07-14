@@ -9,20 +9,20 @@
     <xsl:template match="/">
         <div class="content">
             <div id="login" class="right top">
-                <span><b><a href="/bjx/profile"><xsl:value-of select="$name"/></a></b> ($<xsl:value-of select="$balance"/>)</span>
-                <a class="btn btn-secondary" href="/bjx/logout">
+                <span><b><a href="/xforms-blackjack/profile"><xsl:value-of select="$name"/></a></b> ($<xsl:value-of select="$balance"/>)</span>
+                <a class="btn btn-secondary" href="/xforms-blackjack/logout">
                     <svg>
-                        <use href="/static/bjx/svg/solid.svg#sign-out-alt"/>
+                        <use href="/static/xforms-static/svg/solid.svg#sign-out-alt"/>
                     </svg>
                 </a>
             </div>
-            <a class="btn btn-secondary left top" href="/bjx">◀ Menu</a>
+            <a class="btn btn-secondary left top" href="/xforms-blackjack">◀ Menu</a>
             <xsl:choose>
                 <xsl:when test="$screen = 'games'">
                     <xsl:choose>
                         <xsl:when test="count(games/game) = 0">
                             <p>No active games.</p>
-                            <form action="/bjx/games" method="post">
+                            <form action="/xforms-blackjack/games" method="post">
                                 <input class="btn" type="submit" value="Create new Game"/>
                             </form>
                         </xsl:when>
@@ -34,7 +34,7 @@
                                         <th>Players</th>
                                         <th>State</th>
                                         <th>
-                                            <form action="/bjx/games" method="post">
+                                            <form action="/xforms-blackjack/games" method="post">
                                                 <input class="btn" type="submit" value="+"/>
                                             </form>
                                         </th>
@@ -57,9 +57,9 @@
                                                   select="player[@state = 'active']/@name"
                                                   />=<xsl:value-of select="@state"/></td>
                                             <td>
-                                                <a class="btn btn-secondary" href="/bjx/games/{@id}"
+                                                <a class="btn btn-secondary" href="/xforms-blackjack/games/{@id}"
                                                   >Open</a>
-                                                <form action="/bjx/games/{@id}/delete" method="POST">
+                                                <form action="/xforms-blackjack/games/{@id}/delete" method="POST">
                                                   <input class="btn btn-danger" type="submit"
                                                   value="Delete"/>
                                                 </form>
@@ -73,7 +73,7 @@
                 </xsl:when>
 
                 <xsl:when test="$screen = 'highscores'">
-                    <a class="btn btn-secondary left top" href="/bjx">◀ Menu</a>
+                    <a class="btn btn-secondary left top" href="/xforms-blackjack">◀ Menu</a>
                     <table id="highscores-table" class="table information">
                         <thead class="thead-light">
                             <tr>
@@ -105,7 +105,7 @@
                         <h2><xsl:value-of select="/user/@name"/></h2>
                         <p>Balance: $<xsl:value-of select="/user/balance"/></p>
                         <p>Highscore: $<xsl:value-of select="/user/highscore"/></p>
-                        <form action="/bjx/deposit" method="POST">
+                        <form action="/xforms-blackjack/deposit" method="POST">
                             <input type="number" name="amount"/>
                             <button type="submit" class="btn">
                                 Deposit
