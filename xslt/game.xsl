@@ -123,6 +123,15 @@
                     </g>
                 </svg>
                 <div class="functions">
+                    <div id="login" class="right top">
+                        <span><b><a href="/bjx/profile"><xsl:value-of select="$name"/></a></b> ($<xsl:value-of select="$balance"/>)</span>
+                        <a class="btn btn-secondary" href="/bjx/logout">
+                            <svg>
+                                <use href="/static/bjx/svg/solid.svg#sign-out-alt"/>
+                            </svg>
+                        </a>
+                    </div>
+                    
                     <xsl:choose>
                         <xsl:when test="$self">
                             <!-- client is participating in the game -->
@@ -142,7 +151,7 @@
                                 <xsl:when test="/game/@state = 'betting' and $self/@state = 'active'">
                                     <!-- Betting stage -->
                                     <form action="/bjx/games/{/game/@id}/bet" method="POST" target="hiddenFrame">
-                                        <input type="number" name="bet" min="1" max="{$self/balance}"/>
+                                        <input type="number" name="bet" min="1" max="{$balance}"/>
                                         <button class="btn" type="submit">
                                             Bet
                                         </button>
@@ -191,11 +200,20 @@
                         </xsl:when>
                         <xsl:otherwise>
                             <!-- client is not participating, spectator mode -->
-                            <p>You are<xsl:text>&#xA0;</xsl:text><b>spectating</b><xsl:text>&#xA0;</xsl:text>this game.</p>
-                            <a class="btn btn-secondary" href="/bjx">◀ Menu</a>
-                            <form action='/bjx/games/{/game/@id}/join' method='POST' target="hiddenFrame">
-                                <button class="btn" type='submit'>Join</button>
-                            </form>
+                            <xsl:choose>
+                                <xsl:when test="1 > $balance">
+                                    <!-- insufficient balance -->
+                                    <p>Insufficient funds. Replenish to your balance<xsl:text>&#xA0;</xsl:text><a href='/bjx/profile'>here</a>.</p>
+                                    <a class="btn btn-secondary" href="/bjx">◀ Menu</a>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <p>You are<xsl:text>&#xA0;</xsl:text><b>spectating</b><xsl:text>&#xA0;</xsl:text>this game.</p>
+                                    <a class="btn btn-secondary" href="/bjx">◀ Menu</a>
+                                    <form action='/bjx/games/{/game/@id}/join' method='POST' target="hiddenFrame">
+                                        <button class="btn" type='submit'>Join</button>
+                                    </form>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:otherwise>
                     </xsl:choose>
                 </div>
