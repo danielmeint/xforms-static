@@ -91,7 +91,7 @@
                         <tr>
                             <td>Stand</td>
                             <td>Ends the player's turn</td>
-                            <td>Always possible</td>
+                            <td>Always possible and automatically performed when the player busts</td>
                         </tr>
                         <tr>
                             <td>Hit</td>
@@ -106,7 +106,7 @@
                         <tr>
                             <td>Insurance</td>
                             <td>The player puts a side-bet worth half his initial bet on the outcome that the dealer has a Blackjack</td>
-                            <td>Available if the first card of the dealer is an Ace</td>
+                            <td>Available if the player's hand value is less than 21 and the first card of the dealer is an Ace</td>
                         </tr>
                     </tbody>
 
@@ -114,7 +114,7 @@
                 
                 If a player busts, they lose the round and have to
                 pay their bet to the dealer</para>
-            <para>After all players have finished their turn, the dealer players in a predetermined
+            <para>After all players have finished their turn, the dealer plays in a predetermined
                 manner: He draws cards as long as his hand is worth less than 17 points and must
                 stand on a soft 17 or better.</para>
         </section>

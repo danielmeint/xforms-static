@@ -40,8 +40,7 @@
                             <text class="hand_value" x="30px" y="115px" xmlns="http://www.w3.org/2000/svg">
                                 <xsl:choose>
                                     <xsl:when test="/game/@state = 'playing'">
-                                        <!-- only show value of the visible card -->
-                                        <xsl:value-of select="/game/dealer/hand/card[1]/@value"/>
+                                        ?
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:value-of select="/game/dealer/hand/@value"/>
@@ -160,7 +159,7 @@
                                 
                                 <xsl:when test="/game/@state = 'playing' and $self/@state = 'active'">
                                     <!-- Playing stage -->
-                                    <xsl:if test="count($self/hand/card) &lt; 3">
+                                    <xsl:if test="count($self/hand/card) &lt; 3 and $self/hand/@value &lt; 21 and $balance >= 2 * $self/bet">
                                         <form action="/xforms-blackjack/games/{/game/@id}/double" method="POST" target="hiddenFrame">
                                             <button class="btn btn-secondary" type="submit">Double Down</button>
                                         </form>
@@ -181,16 +180,16 @@
                                     </form>
                                     <p>
                                         <xsl:choose>
-                                            <xsl:when test="$self/@state = 'won'">
-                                                You win<xsl:text>&#xA0;</xsl:text><span class='earnings won'>$<xsl:value-of select="$self/bet"/></span>
+                                            <xsl:when test="$self/profit > 0">
+                                                You win<xsl:text>&#xA0;</xsl:text><span class='earnings won'>$<xsl:value-of select="$self/profit"/></span>
                                             </xsl:when>
                                             
-                                            <xsl:when test="$self/@state = 'tied'">
+                                            <xsl:when test="$self/profit = 0">
                                                 You tie and keep your bet.
                                             </xsl:when>
                                             
-                                            <xsl:when test="$self/@state = 'lost'">
-                                                You lose<xsl:text>&#xA0;</xsl:text><span class='earnings lost'>$<xsl:value-of select="$self/bet"/></span>
+                                            <xsl:when test="$self/profit &lt; 0">
+                                                You lose<xsl:text>&#xA0;</xsl:text><span class='earnings lost'>$<xsl:value-of select="$self/profit"/></span>
                                             </xsl:when>
                                         </xsl:choose>
                                     </p>
