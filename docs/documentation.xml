@@ -26,16 +26,12 @@
     </info>
     <section>
         <title>Introduction</title>
-        <para>Current XML technologies provide a full stack of modeling languages, implementation
-            languages, and tools for web applications that is stable, platform independent, and
-            based on open standards. A particularly strong point of what we call the X stack is that
-            data are encoded with XML end-to-end and that XML technologies can be used whereever XML
-            data need to be processed. Combining principles and proven practices from document and
-            software engineering, this paper documents architecture, modeling techniques, and
-            implementation strategies for the simple browser game Guess the Number (GN).</para>
+        <!-- Daniel -->
+        <para></para>
     </section>
     <section>
         <title>Description of the case study</title>
+        <!-- Daniel -->
         <para>We implement the popular casino game Blackjack as a multi-client web application.
             Globally, there are a variety of rulesets with slight differences. We seek to present
             the most universally accepted variation, commonly found in Las Vegas casinos.</para>
@@ -118,9 +114,6 @@
                 manner: He draws cards as long as his hand is worth less than 17 points and must
                 stand on a soft 17 or better.</para>
         </section>
-
-
-
     </section>
     <section>
         <title>Architecture</title>
@@ -160,7 +153,7 @@
         </section>
     </section>
     <section>
-        <title>Conclusions</title>
+    <title>Conclusions</title>
 
     </section>
     <bibliography>
@@ -170,7 +163,7 @@
                 20</bibliomisc>
         </biblioentry>
         <biblioentry xreflabel="BaseX" xml:id="BaseXHome">
-            <bibliomisc> BaseX homepage. http://basex.org. Last accessed on 2019 February 25
+            <bibliomisc>BaseX homepage. http://basex.org. Last accessed on 2019 February 25
             </bibliomisc>
         </biblioentry>
         <biblioentry xreflabel="B16" xml:id="BrüggemannXMLAppsBalisage16">

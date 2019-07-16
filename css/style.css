@@ -44,7 +44,7 @@ body {
 
 .content {
     width: calc(100vw - 4rem);
-    max-width: 1024px;
+    max-width: 40rem;
 
     background: white;
     padding: 1rem 3rem;
@@ -233,6 +233,18 @@ input {
 
 input:not([type="submit"]):hover, input:not([type="submit"]):focus {
     border-color: var(--primary-color);
+}
+
+@media screen and (max-device-width: 1200px) {
+    #login {
+        padding-left: 1rem;
+        background-color: white;
+        border-radius: 1rem 0 0 1rem;
+    }
+    
+    .chat {
+        display: none;
+    }
 }
 
 /* buttons */
