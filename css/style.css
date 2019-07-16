@@ -9,6 +9,7 @@ Daniel Meint
 :root {
     --primary-color: #5e995e;
     --secondary-color: #c5ebc5;
+    --primary-color-dark: darkolivegreen;
 }
 
 * {
@@ -54,13 +55,8 @@ body {
     text-align: center;
 }
 
-.information {
-
-}
-
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+h1, h2, h3, h4 {
+    color: var(--primary-color);
 }
 
 .left {
@@ -106,12 +102,12 @@ a:visited:not(.btn) {
 
 a:hover:not(.btn) {
   text-decoration: underline;
-  color: darkolivegreen;
+  color: var(--primary-color-dark);
 }
 
 a:active:not(.btn) {
   text-decoration: underline;
-  color: darkolivegreen;
+  color: var(--primary-color-dark);
 }
 
 .functions {
@@ -141,6 +137,10 @@ table th, table td {
 form {
     margin: 0;
     display: inline-block;
+}
+
+form input, form button {
+    vertical-align: middle;
 }
 
 #login svg {
@@ -223,6 +223,10 @@ form {
     opacity: 1;
 }
 
+#highscores-table tr.self {
+    color: var(--primary-color);
+}
+
 input {
     padding: .375rem .75rem;
     border-radius: .25rem;
@@ -282,7 +286,7 @@ input:not([type="submit"]):hover, input:not([type="submit"]):focus {
 }
 
 .btn:hover {
-    background-color: darkolivegreen;
+    background-color: var(--primary-color-dark);
 }
 
 .btn-small {
